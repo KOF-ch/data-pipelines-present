@@ -1,0 +1,85 @@
+---
+title: "Opensource Driven Data Pipes"
+subtitle: "How KOF uses R, PostgreSQL, Git and Co."
+author: "Matthias Bannert"
+date: "Jan 11, 2018"
+output: ioslides_presentation
+widescreen: true
+runtime: shiny
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Background Poll
+
+## About KOF
+
+[=> KOF about KOF](https://www.kof.ethz.ch/en/)
+
+## Requirements
+
+- ensure documentation and long term knowledge transfer
+- timely data imports
+- reproducibly process data
+- disseminate data
+- publish KOF products
+- enable language agnostic consumption
+
+
+## Stack 
+
+- git
+- gitlab
+- github
+- R
+- R Studio Server
+- PostgreSQL
+- PHP
+- nginx
+- shiny server
+- dygraphs
+- KONG
+- Python
+- RHEL
+
+
+## Implementation - Robustness & Longevity
+
+- de-centralized version control /w git
+- host git repos on [gitlab](https://gitlab.ethz.ch) and [github](https://github.com/KOF-ch/)
+- create packages to force documentation, e.g.,
+    - kofdata ([CRAN](https://cran.r-project.org/web/packages/kofdata/index.html))
+    - timeseriesdb ([github](https://github.com/mbannert/timeseriesdb))
+    - tstools ([github](https://github.com/mbannert/tstools))
+    - kofbts (internal)
+    - kofbarometer (internal)
+    - ... 
+- mkdocs (markdown based documentation), mediawiki
+- use a database, not filesystem based organization
+- use servers to avoid maintenance issues in production
+
+## Git - a micro excursion
+
+- git is not a dropbox style sync
+- git is decentralized 
+- git is not github 
+- git itself is a console program, GUIs come on top
+- applied example: [*diff*erence between versions]()
+
+
+## Data imports
+
+- use API whenever possible 
+    - [SNB data](data.snb.ch)
+    - [BFS PX web](https://www.pxweb.bfs.admin.ch/)
+- time controlled R scripts (cronjobs) on servers
+
+
+
+
+
+
+
+
