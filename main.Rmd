@@ -69,12 +69,69 @@ knitr::opts_chunk$set(echo = FALSE)
 - applied example: [*diff*erence between versions]()
 
 
+## Overview
+
+
 ## Data imports
 
 - use API whenever possible 
     - [SNB data](data.snb.ch)
     - [BFS PX web](https://www.pxweb.bfs.admin.ch/)
 - time controlled R scripts (cronjobs) on servers
+- assign unique keys following: 
+country.provider.source.level.instance.variable.item
+- store to postgreSQL database using R script
+
+
+## Reproducibly Process Data
+
+- scripts, mostly packages
+- unit tests (introduction phase)
+- no point and click processes
+- log files
+- error notifications mails
+- GUI for production processes
+- data.table, seasonal
+- use tryCatch
+- knitr / rmarkdown, tstools
+
+## Disseminate Data: datenservice.kof.ethz.ch API
+
+- REST API (compose URL dynamically)
+  - ordinary links
+  - use curl based, automated downloads
+  - file based endpoints
+  - dynamic endpoints
+- kofdata R and Python packages (API wrapper)
+
+## Publish Data
+
+- KOF Website
+- KOF Indicator Dashboard
+- publish / subscribe (introduction phase)
+- move timeseries data from one schema to another (updates all links and graphs)
+
+[e.g. KOF Barometer](https://www.kof.ethz.ch/en/forecasts-and-indicators/indicators/kof-economic-barometer.html)
+
+
+## Implementation Details: timeseriesdb
+
+- map R time series objects to PostgreSQL table relations
+- uses hstore key-value pair storage
+- can store vintages
+
+
+## KOF Reports
+
+
+
+
+
+
+
+
+
+
 
 
 
