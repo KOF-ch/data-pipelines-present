@@ -1,0 +1,37 @@
+---
+title: "Data Pipelines"
+subtitle: Example Monthly Report 
+output: 
+  pdf_document:
+    latex_engine: xelatex
+documentclass: article
+classoption: 
+  - twocolumn
+header-includes:
+  - \usepackage{multicol}
+  - \setlength{\columnsep}{1cm}
+  - \usepackage{fontspec}
+  - \setmainfont{Arial}
+---
+
+
+```{r,echo=FALSE}
+tsplot(snbseries_m[1])
+```
+
+
+```{r,echo=FALSE}
+tsplot(snbseries_m[2])
+```
+
+```{r,echo=FALSE}
+tsplot(snbseries_m[3])
+```
+
+```{r,echo=FALSE}
+tsplot(snbseries_m[4],tsr = snbseries_m[5])
+```
+
+
+
+

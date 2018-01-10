@@ -14,6 +14,47 @@ knitr::opts_chunk$set(echo = FALSE)
 
 ## Background Poll
 
+```{r,echo=FALSE}
+library(grid)
+library(shiny)
+source("R/bullet.R")
+
+fluidPage(sidebarLayout(sidebarPanel(
+  numericInput("members", "Number of participants", 25),
+  numericInput("rstats", "R", 10),  
+  numericInput("git", "Git", 10),
+  numericInput("sql", "PostgreSQL", 10)
+  ),
+  mainPanel(
+    renderPlot({
+      techavg <- mean(c(input$prof,
+                        input$data,
+                        input$stats) / input$members)*100
+  df1 <- data.frame(units = c("R (%)","git (%)","pgSQL (%)"),
+                    low = c(25,25,25),
+                    mean = c(50,50,50),
+                    high = c(100,100,100),
+                    target = c(techavg,techavg,techavg),
+                    value = c(100*(input$prog/input$members),
+                              100*(input$data/input$members),
+                              100*(input$rstats/input$members)
+                              )
+                    )
+
+  g <- gridBulletGraphH(df1,bcol = c("#999999","#CCCCCC","#E1E1E1"),
+                   vcol = "#333333",font = 20)
+
+  g + title(paste("Usage of Technologies Among Participants", sep=" "))
+
+})  
+
+
+    )
+  ))
+
+```
+
+
 ## About KOF
 
 [=> KOF about KOF](https://www.kof.ethz.ch/en/)
@@ -21,67 +62,70 @@ knitr::opts_chunk$set(echo = FALSE)
 ## Requirements
 
 - ensure documentation and long term knowledge transfer
-- timely data imports
+- timely data imports & persistent storage
 - reproducibly process data
 - disseminate data
 - publish KOF products
 - enable language agnostic consumption
 
+## Overview
+
+<img src="overview.png">
+
 
 ## Stack 
 
-- git
-- gitlab
-- github
-- R
-- R Studio Server
-- PostgreSQL
-- PHP
-- nginx
-- shiny server
-- dygraphs
-- KONG
-- Python
-- RHEL
+<img src="images/python.png" width="200">
+<img src="images/git.png">
+<img src="images/github.png">
+<img src="images/julia.png" width="130">
+<img src="images/rstats.png" height="80">
+<img src="images/rstudio.png" width="130">
+<img src="images/d3.png" height="80">
+<img src="images/postgresql.png" width="150">
+<img src="images/nginx.png" width="150">
+<img src="images/javascript.jpeg" height="80">
+<img src="images/kong.png">
+<img src="images/rhel.jpeg">
 
 
-## Implementation - Robustness & Longevity
+## Robustness & Longevity
 
 - de-centralized version control /w git
-- host git repos on [gitlab](https://gitlab.ethz.ch) and [github](https://github.com/KOF-ch/)
-- create packages to force documentation, e.g.,
-    - kofdata ([CRAN](https://cran.r-project.org/web/packages/kofdata/index.html))
-    - timeseriesdb ([github](https://github.com/mbannert/timeseriesdb))
-    - tstools ([github](https://github.com/mbannert/tstools))
-    - kofbts (internal)
-    - kofbarometer (internal)
-    - ... 
+- create packages to force documentation
 - mkdocs (markdown based documentation), mediawiki
 - use a database, not filesystem based organization
 - use servers to avoid maintenance issues in production
 
 ## Git - a micro excursion
 
-- git is not a dropbox style sync
+- applied example: [*diff*erence between versions](https://github.com/mbannert/tstools/commits/master)
+- git is not a dropbox-style-sync
 - git is decentralized 
 - git is not github 
 - git itself is a console program, GUIs come on top
-- applied example: [*diff*erence between versions]()
-
-
-## Overview
 
 
 ## Data imports
 
-- use API whenever possible 
-    - [SNB data](data.snb.ch)
+- use APIs whenever possible 
+    - [SNB data](https://data.snb.ch)
     - [BFS PX web](https://www.pxweb.bfs.admin.ch/)
 - time controlled R scripts (cronjobs) on servers
 - assign unique keys following: 
 country.provider.source.level.instance.variable.item
 - store to postgreSQL database using R script
 
+## Package timeseriesdb
+
+- map R time series to PostgreSQL relations
+- available on github
+
+```{r,eval=FALSE}
+library(timeseriesdb)
+tslist <- readTimeseries(vector_of_keys, connection)
+storeTimeSeries(vector_of_keys, connection, list_of_series)
+```
 
 ## Reproducibly Process Data
 
