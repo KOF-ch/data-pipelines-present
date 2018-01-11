@@ -54,6 +54,13 @@ fluidPage(sidebarLayout(sidebarPanel(
 
 ```
 
+## Outline
+
+- about KOF -> requirements
+- big picture + stack
+- application examples along the flow of data
+
+
 
 ## About KOF
 
@@ -78,6 +85,7 @@ fluidPage(sidebarLayout(sidebarPanel(
 <img src="images/python.png" width="200">
 <img src="images/git.png">
 <img src="images/github.png">
+<img src="images/gitlab.png">
 <img src="images/julia.png" width="130">
 <img src="images/rstats.png" height="80">
 <img src="images/rstudio.png" width="130">
@@ -93,7 +101,7 @@ fluidPage(sidebarLayout(sidebarPanel(
 
 - de-centralized version control /w git
 - create packages to force documentation
-- mkdocs (markdown based documentation), mediawiki
+- [mkdocs](http://127.0.0.1:8000) (markdown based documentation), mediawiki
 - use a database, not filesystem based organization
 - use servers to avoid maintenance issues in production
 
@@ -112,9 +120,11 @@ fluidPage(sidebarLayout(sidebarPanel(
     - [SNB data](https://data.snb.ch)
     - [BFS PX web](https://www.pxweb.bfs.admin.ch/)
 - time controlled R scripts (cronjobs) on servers
-- assign unique keys following: 
+- assign unique keys following (see also [KOF Key Explorer](https://datenservice.kof.ethz.ch/static/keyexplorer/index.html)): 
 country.provider.source.level.instance.variable.item
-- store to postgreSQL database using R script
+- store to postgreSQL database using the [timeseriesdb](https://github.com/mbannert/timeseriesdb) R package
+
+-> snb_demo.R
 
 ## Package timeseriesdb
 
@@ -130,7 +140,7 @@ storeTimeSeries(vector_of_keys, connection, list_of_series)
 ## Reproducibly Process Data
 
 - scripts, mostly packages
-- unit tests (introduction phase)
+- [unit tests](https://github.com/KOF-ch/kofdata/tree/master/tests/testthat) (introduction phase)
 - no point and click processes
 - log files
 - error notifications mails
@@ -138,6 +148,14 @@ storeTimeSeries(vector_of_keys, connection, list_of_series)
 - data.table, seasonal
 - use tryCatch
 - knitr / rmarkdown, tstools
+
+## Publish Data
+
+- KOF Website [e.g. KOF Barometer](https://www.kof.ethz.ch/en/forecasts-and-indicators/indicators/kof-economic-barometer.html)
+- [KOF Indicator Dashboard](http://127.0.0.1:1234/)
+- move timeseries data from one schema to another (updates all links and graphs)
+- publish / subscribe (introduction phase)
+
 
 ## Disseminate Data: datenservice.kof.ethz.ch API
 
@@ -148,27 +166,19 @@ storeTimeSeries(vector_of_keys, connection, list_of_series)
   - dynamic endpoints
 - kofdata R and Python packages (API wrapper)
 
-## Publish Data
-
-- KOF Website
-- KOF Indicator Dashboard
-- publish / subscribe (introduction phase)
-- move timeseries data from one schema to another (updates all links and graphs)
-
-[e.g. KOF Barometer](https://www.kof.ethz.ch/en/forecasts-and-indicators/indicators/kof-economic-barometer.html)
-
-
-## Implementation Details: timeseriesdb
-
-- map R time series objects to PostgreSQL table relations
-- uses hstore key-value pair storage
-- can store vintages
-
 
 ## KOF Reports
 
+- rmarkdown templates
+- time series from database
+- plot /w tstools
 
+-> knitr_demo.R
+-> dlu_report.pdf
 
+## Thank you !
+
+https://twitter.com/whatsgoodio
 
 
 
